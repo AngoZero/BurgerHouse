@@ -1,0 +1,282 @@
+---
+import { fullMenu } from "../data/full-menu";
+import { businessInfo } from "../data/navigation";
+
+const formatPrice = (price: number) =>
+  new Intl.NumberFormat("es-MX", {
+    style: "currency",
+    currency: "MXN",
+    minimumFractionDigits: 2,
+  }).format(price);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carta - BurgerHouse</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --accent: #e74c3c;
+        --dark: #0f0f23;
+        --text-secondary: #666666;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        color: var(--dark);
+        background: #ffffff;
+        padding: 3rem 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .no-print {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 50;
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      .no-print button,
+      .no-print a {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 0.875rem 1.5rem;
+        border-radius: 0.75rem;
+        font-weight: 600;
+        font-size: 0.875rem;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: 0 4px 14px rgba(231, 76, 60, 0.4);
+        transition: all 0.2s;
+      }
+
+      .no-print button:hover,
+      .no-print a:hover {
+        background: #c0392b;
+        transform: translateY(-1px);
+      }
+
+      .no-print a {
+        background: var(--dark);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      }
+
+      .no-print a:hover {
+        background: #1a1a2e;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 3px solid var(--accent);
+      }
+
+      .header h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 0.25rem;
+      }
+
+      .header h1 span {
+        color: var(--accent);
+      }
+
+      .header .subtitle {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-top: 0.5rem;
+      }
+
+      /* Category */
+      .category {
+        margin-bottom: 2.5rem;
+      }
+
+      .category h2 {
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--dark);
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid var(--accent);
+        margin-bottom: 1.25rem;
+      }
+
+      /* Item */
+      .item {
+        margin-bottom: 1rem;
+      }
+
+      .item-header {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+      }
+
+      .item-name {
+        font-weight: 700;
+        font-size: 1rem;
+        white-space: nowrap;
+      }
+
+      .item-dots {
+        flex: 1;
+        border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
+        min-width: 2rem;
+        transform: translateY(-4px);
+      }
+
+      .item-price {
+        font-weight: 700;
+        color: var(--accent);
+        font-size: 1rem;
+        white-space: nowrap;
+      }
+
+      .item-desc {
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        margin-top: 0.15rem;
+        line-height: 1.4;
+      }
+
+      /* Footer */
+      .footer {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 2px solid var(--accent);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .footer h3 {
+        font-size: 0.875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: 0.5rem;
+      }
+
+      .footer p {
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        line-height: 1.6;
+      }
+
+      /* Print styles */
+      @media print {
+        body {
+          padding: 1.5rem;
+          font-size: 11pt;
+        }
+
+        .no-print {
+          display: none !important;
+        }
+
+        .header {
+          margin-bottom: 2rem;
+          padding-bottom: 1.5rem;
+        }
+
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .category {
+          margin-bottom: 1.5rem;
+          break-inside: avoid;
+        }
+
+        .item {
+          break-inside: avoid;
+          margin-bottom: 0.6rem;
+        }
+
+        .footer {
+          margin-top: 2rem;
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Floating action buttons (hidden on print) -->
+    <div class="no-print">
+      <a href="/">&#8592; Volver</a>
+      <button onclick="window.print()">&#128438; Descargar PDF</button>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+      <h1><span>Burger</span>House</h1>
+      <p class="subtitle">Hamburguesas Artesanales</p>
+    </div>
+
+    <!-- Menu Categories -->
+    {
+      fullMenu.map((category) => (
+        <div class="category">
+          <h2>{category.name}</h2>
+          {category.items.map((item) => (
+            <div class="item">
+              <div class="item-header">
+                <span class="item-name">{item.name}</span>
+                <span class="item-dots" />
+                <span class="item-price">{formatPrice(item.price)}</span>
+              </div>
+              <p class="item-desc">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      ))
+    }
+
+    <!-- Footer -->
+    <div class="footer">
+      <div>
+        <h3>Contacto</h3>
+        <p>
+          {businessInfo.phone}<br />
+          {businessInfo.email}
+        </p>
+      </div>
+      <div>
+        <h3>Dirección</h3>
+        <p>{businessInfo.address}</p>
+      </div>
+      <div>
+        <h3>Horario</h3>
+        {businessInfo.hours.map((line) => <p>{line}</p>)}
+      </div>
+    </div>
+  </body>
+</html>

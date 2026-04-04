@@ -1,0 +1,65 @@
+---
+import { topBurgers } from "../../data/top-burgers";
+import Button from "../ui/Button.astro";
+
+const formatPrice = (price: number) =>
+  new Intl.NumberFormat("es-MX", {
+    style: "currency",
+    currency: "MXN",
+    minimumFractionDigits: 2,
+  }).format(price);
+
+const sections = [
+  { bg: "bg-primary", textColor: "text-white", subText: "text-white/70", tagColor: "text-yellow", nameColor: "text-yellow", priceColor: "text-yellow", btnVariant: "yellow" as const },
+  { bg: "bg-white", textColor: "text-dark", subText: "text-text-secondary", tagColor: "text-primary", nameColor: "text-primary", priceColor: "text-primary", btnVariant: "primary" as const },
+  { bg: "bg-yellow", textColor: "text-dark", subText: "text-dark/70", tagColor: "text-dark/60", nameColor: "text-primary", priceColor: "text-primary", btnVariant: "primary" as const },
+];
+---
+
+<section id="destacados">
+  {topBurgers.map((burger, index) => {
+    const s = sections[index];
+    return (
+      <div class:list={[s.bg, "py-20 lg:py-28 overflow-hidden"]}>
+        <div class="container mx-auto px-4 lg:px-8">
+          <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <!-- Texto -->
+            <div>
+              <span class:list={[
+                "inline-block font-semibold text-sm tracking-widest uppercase mb-4",
+                s.tagColor
+              ]}>
+                {burger.tagline}
+              </span>
+              <h3 class:list={[
+                "font-display text-5xl md:text-6xl lg:text-7xl tracking-wide leading-[0.95] mb-6",
+                s.textColor
+              ]}>
+                {burger.name.toUpperCase().split(" ").slice(0, -1).join(" ")}{" "}
+                <span class={s.nameColor}>{burger.name.toUpperCase().split(" ").pop()}</span>
+              </h3>
+              <p class:list={["text-lg leading-relaxed mb-6 max-w-md", s.subText]}>
+                {burger.description}
+              </p>
+              <p class:list={["font-display text-4xl mb-8", s.priceColor]}>
+                {formatPrice(burger.price)}
+              </p>
+              <Button href="#menu" variant={s.btnVariant}>Ordenar Ahora</Button>
+            </div>
+
+            <!-- Imagen -->
+            <div class="relative flex justify-center">
+              <img
+                src={burger.image}
+                alt={burger.name}
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+                class="w-full max-w-lg drop-shadow-2xl hover:scale-110 transition-transform duration-500"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</section>

@@ -1,0 +1,36 @@
+---
+import Button from "../ui/Button.astro";
+---
+
+<section id="inicio" class="relative min-h-screen flex items-center overflow-hidden">
+  <!-- Background image -->
+  <img
+    src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=1920&h=1080&fit=crop"
+    alt=""
+    class="absolute inset-0 w-full h-full object-cover"
+    loading="eager"
+    decoding="async"
+  />
+
+  <!-- Dark overlay -->
+  <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
+
+  <div class="container mx-auto px-4 lg:px-8 relative z-10 pt-20">
+    <div class="max-w-3xl">
+      <h1 class="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-[0.9] tracking-wide text-white mb-6">
+        EL FUEGO
+        <span class="text-yellow">&</span><br />
+        EL
+        <span class="text-yellow">SABOR.</span>
+      </h1>
+      <p class="text-white/80 text-lg md:text-xl leading-relaxed mb-10 max-w-xl">
+        Descubre el sabor auténtico de nuestras hamburguesas artesanales,
+        preparadas con los ingredientes más frescos y todo nuestro amor.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <Button href="#menu" variant="primary">Ordenar Ahora</Button>
+        <Button href="#destacados" variant="outline">Ver Destacados</Button>
+      </div>
+    </div>
+  </div>
+</section>

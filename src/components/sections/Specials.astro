@@ -1,0 +1,77 @@
+---
+import { specials } from "../../data/specials";
+import { Sparkles } from "lucide-astro";
+---
+
+<section class="relative bg-[#fdf6ee] py-20 lg:py-28 overflow-hidden">
+  <!-- Decorative circles -->
+  <div class="absolute top-10 left-10 w-40 h-40 bg-accent/5 rounded-full blur-2xl"></div>
+  <div class="absolute bottom-10 right-10 w-60 h-60 bg-amber-200/30 rounded-full blur-3xl"></div>
+
+  <div class="container mx-auto px-4 lg:px-8 relative">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 bg-accent text-white text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-widest">
+        <Sparkles class="w-4 h-4" />
+        Nuevo Lanzamiento
+      </div>
+      <h2 class="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-dark leading-none mb-4">
+        Edición<br />
+        <span class="text-accent">Especial</span>
+      </h2>
+      <p class="text-text-secondary text-lg mt-4 max-w-md mx-auto">
+        Nuestras creaciones más audaces. Sabores únicos por tiempo limitado.
+      </p>
+    </div>
+
+    <!-- Specials Grid -->
+    <div class="grid md:grid-cols-3 gap-8 lg:gap-12 max-w-5xl mx-auto">
+      {specials.map((item, index) => (
+        <div class:list={[
+          "relative flex flex-col items-center text-center group",
+          index === 1 ? "md:-mt-8" : ""
+        ]}>
+          <!-- Image -->
+          <div class="relative mb-8">
+            <div class="absolute inset-0 bg-accent/10 rounded-full scale-110 blur-xl group-hover:bg-accent/20 transition-all duration-500"></div>
+            <img
+              src={item.image}
+              alt={item.name}
+              loading="lazy"
+              decoding="async"
+              class="relative w-56 h-56 lg:w-64 lg:h-64 rounded-full object-cover shadow-xl group-hover:scale-105 transition-transform duration-500 ring-4 ring-white"
+            />
+          </div>
+
+          <!-- Info -->
+          <h3 class="text-2xl lg:text-3xl font-heading font-bold text-dark mb-3">
+            {item.name}
+          </h3>
+          <ul class="flex flex-col gap-1">
+            {item.ingredients.map((ingredient) => (
+              <li class="text-text-secondary text-sm uppercase tracking-wider font-medium">
+                {ingredient}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom tagline -->
+    <div class="flex flex-col sm:flex-row items-center justify-between mt-16 pt-8 border-t border-dark/10 max-w-3xl mx-auto">
+      <p class="text-2xl md:text-3xl font-heading font-bold text-dark mb-4 sm:mb-0">
+        Nuevas Creaciones
+        <span class="inline-block bg-accent text-white text-sm px-3 py-1 rounded-full align-middle mx-1 font-body">
+          Exclusivas
+        </span>
+      </p>
+      <div class="text-right">
+        <p class="text-text-secondary text-sm uppercase tracking-wider">Desde solo</p>
+        <p class="text-4xl font-bold text-dark">
+          <span class="text-lg text-text-secondary">$</span>14.990
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

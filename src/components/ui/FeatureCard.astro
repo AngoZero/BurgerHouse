@@ -1,0 +1,21 @@
+---
+import { Leaf, ChefHat, Flame } from "lucide-astro";
+import type { Feature } from "../../types";
+
+interface Props {
+  feature: Feature;
+}
+
+const { feature } = Astro.props;
+
+const iconMap = { Leaf, ChefHat, Flame } as Record<string, typeof Leaf>;
+const IconComponent = iconMap[feature.icon];
+---
+
+<div class="text-center p-8 rounded-2xl bg-light hover:shadow-lg transition-all duration-300">
+  <div class="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-6">
+    <IconComponent class="w-8 h-8 text-accent" />
+  </div>
+  <h3 class="text-xl font-bold text-dark mb-3">{feature.title}</h3>
+  <p class="text-text-secondary leading-relaxed">{feature.description}</p>
+</div>

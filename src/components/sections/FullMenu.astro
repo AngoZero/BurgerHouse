@@ -1,0 +1,103 @@
+---
+import { fullMenu } from "../../data/full-menu";
+import { UtensilsCrossed, Globe, MapPin, Phone, Download } from "lucide-astro";
+import { businessInfo } from "../../data/navigation";
+
+const formatPrice = (price: number) =>
+  new Intl.NumberFormat("es-MX", {
+    style: "currency",
+    currency: "MXN",
+    minimumFractionDigits: 2,
+  }).format(price);
+---
+
+<section id="carta" class="relative bg-white py-20 lg:py-28 overflow-hidden">
+  <!-- Decorative elements -->
+  <div class="absolute top-0 left-0 w-72 h-72 bg-yellow/20 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+  <div class="absolute bottom-0 right-0 w-96 h-96 bg-yellow/15 rounded-full translate-x-1/3 translate-y-1/3"></div>
+
+  <div class="container mx-auto px-4 lg:px-8 relative">
+    <!-- Vertical "MENU" text for large screens -->
+    <div class="hidden xl:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4">
+      <span class="text-8xl font-heading font-bold text-dark/5 [writing-mode:vertical-lr] tracking-[0.3em]">
+        MENU
+      </span>
+    </div>
+
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 mb-4">
+        <UtensilsCrossed class="w-5 h-5 text-primary" />
+        <span class="text-primary font-semibold text-sm tracking-widest uppercase">Nuestra Carta</span>
+        <UtensilsCrossed class="w-5 h-5 text-primary" />
+      </div>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-display tracking-wide text-dark mb-6">
+        MENU COMPLETO
+      </h2>
+      <a
+        href="/carta"
+        target="_blank"
+        class="inline-flex items-center gap-2 bg-primary text-white px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-wider hover:bg-primary-hover transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+      >
+        <Download class="w-4 h-4" />
+        Descargar Carta PDF
+      </a>
+    </div>
+
+    <!-- Menu Categories -->
+    <div class="max-w-4xl mx-auto space-y-14">
+      {fullMenu.map((category) => (
+        <div>
+          <h3 class="text-xl font-bold text-dark uppercase tracking-[0.2em] mb-8 pb-3 border-b-2 border-primary">
+            {category.name}
+          </h3>
+
+          <div class="space-y-6">
+            {category.items.map((item) => (
+              <div class="group flex items-start justify-between gap-4">
+                <div class="flex-1">
+                  <div class="flex items-baseline gap-3">
+                    <h4 class="text-lg font-bold text-dark group-hover:text-primary transition-colors">
+                      {item.name}
+                    </h4>
+                    <span class="flex-1 border-b border-dotted border-dark/20 min-w-8 translate-y-[-4px]"></span>
+                    <span class="text-lg font-bold text-primary whitespace-nowrap">
+                      {formatPrice(item.price)}
+                    </span>
+                  </div>
+                  <p class="text-text-secondary text-sm mt-1 pr-20">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom info -->
+    <div class="max-w-4xl mx-auto mt-16 pt-10 border-t border-dark/10">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div>
+          <h4 class="text-lg font-bold text-dark uppercase tracking-wider mb-1">Más Información</h4>
+          <p class="text-text-secondary text-sm italic">Contactanos para reservar:</p>
+        </div>
+        <div class="flex flex-col gap-3 text-sm">
+          <div class="flex items-center gap-3 text-text-secondary">
+            <span>{businessInfo.email}</span>
+            <Globe class="w-4 h-4 text-primary" />
+          </div>
+          <div class="flex items-center gap-3 text-text-secondary">
+            <span>{businessInfo.address}</span>
+            <MapPin class="w-4 h-4 text-primary" />
+          </div>
+          <div class="flex items-center gap-3 text-text-secondary">
+            <span>{businessInfo.phone}</span>
+            <Phone class="w-4 h-4 text-primary" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
