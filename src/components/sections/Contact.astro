@@ -103,9 +103,12 @@ import { branches } from "../../data/branches";
         ></iframe>
       </div>
 
-      <script type="application/json" id="branch-data">
-        {JSON.stringify(Object.fromEntries(branches.map((b) => [b.id, b.mapEmbedUrl])))}
-      </script>
+      <script
+        is:inline
+        type="application/json"
+        id="branch-data"
+        set:html={JSON.stringify(Object.fromEntries(branches.map((b) => [b.id, b.mapEmbedUrl])))}
+      ></script>
     </div>
   </div>
 
