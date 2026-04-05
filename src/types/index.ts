@@ -32,6 +32,15 @@ export interface BusinessInfo {
   hours: string[];
 }
 
+export interface BranchLocation {
+  id: string;
+  name: string;
+  address: string;
+  phone: string;
+  hours: string[];
+  mapEmbedUrl: string;
+}
+
 export interface SpecialItem {
   name: string;
   ingredients: string[];

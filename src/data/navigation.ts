@@ -6,7 +6,7 @@ export const navLinks: NavLink[] = [
   { label: "Destacados", href: "#destacados" },
   { label: "Carta", href: "#carta" },
   { label: "Reservas", href: "#reservas" },
-  { label: "Contacto", href: "#contacto" },
+  { label: "Encuéntranos", href: "#encuentranos" },
 ];
 
 export const socialLinks: SocialLink[] = [
