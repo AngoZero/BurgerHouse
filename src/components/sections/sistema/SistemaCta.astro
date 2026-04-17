@@ -1,0 +1,319 @@
+---
+import {
+  Store,
+  LayoutDashboard,
+  RotateCcw,
+  ShoppingCart,
+  DollarSign,
+  Receipt,
+  TrendingUp,
+  Package,
+  Trash2,
+  Banknote,
+  CreditCard,
+  Smartphone,
+  Boxes,
+  AlertTriangle,
+} from "lucide-astro";
+---
+
+<section id="demo" class="relative bg-dark py-20 lg:py-28 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-yellow/10"></div>
+
+  <div class="container mx-auto px-4 lg:px-8 relative z-10">
+    <div class="max-w-4xl mx-auto text-center mb-10">
+      <h2 class="font-display text-4xl sm:text-5xl md:text-6xl tracking-wide text-white mb-4">
+        LISTO PARA <span class="text-yellow">MODERNIZAR</span><br />
+        TU RESTAURANTE?
+      </h2>
+      <p class="text-white/60 text-lg max-w-lg mx-auto">
+        Pruébalo aquí mismo. Puedes hacer ventas, revisar tus métricas y ajustar stock. Lo que cambies se guarda y sigue ahí cuando vuelvas.
+      </p>
+    </div>
+
+    <!-- Demo Widget -->
+    <div id="demo-widget" class="max-w-5xl mx-auto">
+      <div class="relative rounded-2xl border border-white/10 bg-[#0f0f0f] shadow-2xl overflow-hidden">
+        <!-- Toast -->
+        <div
+          data-toast
+          class="absolute top-3 left-1/2 -translate-x-1/2 translate-y-2 opacity-0 z-20 bg-emerald-500 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg transition-all duration-300 pointer-events-none"
+        ></div>
+
+        <!-- Tabs header -->
+        <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-[#161616]">
+          <div class="flex items-center gap-1 bg-white/5 rounded-full p-1">
+            <button
+              type="button"
+              data-tab="pos"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-colors bg-yellow text-dark"
+            >
+              <Store class="w-3.5 h-3.5" />
+              POS
+            </button>
+            <button
+              type="button"
+              data-tab="dashboard"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-colors text-white/60 hover:text-white"
+            >
+              <LayoutDashboard class="w-3.5 h-3.5" />
+              Dashboard
+            </button>
+            <button
+              type="button"
+              data-tab="inventory"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-colors text-white/60 hover:text-white"
+            >
+              <Boxes class="w-3.5 h-3.5" />
+              Inventario
+            </button>
+          </div>
+
+          <div class="ml-auto flex items-center gap-2">
+            <button
+              type="button"
+              data-reset
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-semibold text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+            >
+              <RotateCcw class="w-3 h-3" />
+              Reiniciar
+            </button>
+          </div>
+        </div>
+
+        <!-- POS Panel -->
+        <div data-panel="pos" class="grid md:grid-cols-[1fr_260px]">
+          <!-- Products -->
+          <div class="p-4 border-r border-white/10">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="px-2 py-0.5 rounded-full bg-primary text-white text-[10px] font-bold">Menú demo</span>
+              <span class="text-white/40 text-[11px]">Toca un producto para agregarlo al carrito</span>
+            </div>
+            <div data-products class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+              <!-- Rendered by demo-pos.ts -->
+            </div>
+          </div>
+
+          <!-- Cart -->
+          <div class="p-4 flex flex-col bg-[#111] min-h-[360px]">
+            <div class="flex items-center gap-1.5 mb-3">
+              <ShoppingCart class="w-3.5 h-3.5 text-white/60" />
+              <span class="text-white text-[11px] font-bold uppercase tracking-wider">Orden actual</span>
+              <button
+                type="button"
+                data-clear
+                class="hidden ml-auto inline-flex items-center gap-1 text-[10px] font-semibold text-white/50 hover:text-primary transition-colors"
+                aria-label="Vaciar carrito"
+                title="Vaciar carrito"
+              >
+                <Trash2 class="w-3 h-3" />
+                Vaciar
+              </button>
+            </div>
+
+            <div data-cart-empty class="flex-1 flex flex-col items-center justify-center text-center py-6">
+              <ShoppingCart class="w-8 h-8 text-white/15 mb-2" />
+              <p class="text-white/30 text-xs">Agrega productos<br />para empezar</p>
+            </div>
+
+            <div data-cart class="flex-1 space-y-2 overflow-y-auto">
+              <!-- Rendered by demo-pos.ts -->
+            </div>
+
+            <div class="border-t border-white/10 pt-3 mt-3 space-y-1">
+              <div class="flex justify-between text-[11px]">
+                <span class="text-white/50">Subtotal</span>
+                <span class="text-white/80" data-subtotal>$0.00</span>
+              </div>
+              <div class="flex justify-between text-[11px]">
+                <span class="text-white/50">IVA 16%</span>
+                <span class="text-white/80" data-tax>$0.00</span>
+              </div>
+              <div class="flex justify-between text-sm font-bold pt-1">
+                <span class="text-white">Total</span>
+                <span class="text-yellow" data-total>$0.00</span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              data-checkout
+              class="mt-3 w-full py-2.5 rounded-xl bg-primary hover:bg-primary-hover text-white text-xs font-bold uppercase tracking-wider transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              Cobrar
+            </button>
+          </div>
+        </div>
+
+        <!-- Dashboard Panel -->
+        <div data-panel="dashboard" class="hidden p-5">
+          <!-- Stat cards -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+            <div class="rounded-xl border border-white/10 bg-white/5 p-3">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="text-[10px] text-white/40 font-bold uppercase tracking-wider">Ventas demo</span>
+                <DollarSign class="w-3.5 h-3.5 text-emerald-400" />
+              </div>
+              <p class="text-lg font-bold text-white" data-stat="revenue">$0.00</p>
+            </div>
+            <div class="rounded-xl border border-white/10 bg-white/5 p-3">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="text-[10px] text-white/40 font-bold uppercase tracking-wider">Tickets</span>
+                <Receipt class="w-3.5 h-3.5 text-blue-400" />
+              </div>
+              <p class="text-lg font-bold text-white" data-stat="tickets">0</p>
+            </div>
+            <div class="rounded-xl border border-white/10 bg-white/5 p-3">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="text-[10px] text-white/40 font-bold uppercase tracking-wider">Ticket promedio</span>
+                <TrendingUp class="w-3.5 h-3.5 text-yellow" />
+              </div>
+              <p class="text-lg font-bold text-white" data-stat="avg">—</p>
+            </div>
+            <div class="rounded-xl border border-white/10 bg-white/5 p-3">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="text-[10px] text-white/40 font-bold uppercase tracking-wider">Productos vendidos</span>
+                <Package class="w-3.5 h-3.5 text-primary" />
+              </div>
+              <p class="text-lg font-bold text-white" data-stat="items">0</p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-5 gap-4">
+            <div class="md:col-span-3 rounded-xl border border-white/10 bg-white/5 p-4">
+              <p class="text-xs font-bold text-white mb-3 uppercase tracking-wider">Últimas ventas</p>
+              <div data-chart class="flex items-end gap-1.5 h-32"></div>
+            </div>
+            <div class="md:col-span-2 rounded-xl border border-white/10 bg-white/5 p-4">
+              <p class="text-xs font-bold text-white mb-3 uppercase tracking-wider">Top productos</p>
+              <div data-top class="space-y-3"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inventory Panel -->
+        <div data-panel="inventory" class="hidden p-5">
+          <div class="flex flex-wrap items-center gap-2 mb-4">
+            <span
+              data-inv-total
+              class="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-semibold text-white/80"
+            >
+              <Boxes class="w-3 h-3" />
+              6 productos
+            </span>
+            <span
+              data-inv-low
+              class="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/20 px-3 py-1.5 text-[11px] font-bold text-primary"
+            >
+              <AlertTriangle class="w-3 h-3" />
+              0 con stock bajo
+            </span>
+            <button
+              type="button"
+              data-inv-reset
+              class="ml-auto inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-3 py-1.5 text-[11px] font-semibold text-white/70 hover:text-white transition-colors"
+            >
+              <RotateCcw class="w-3 h-3" />
+              Reiniciar stock
+            </button>
+          </div>
+
+          <div data-inventory class="rounded-xl border border-white/10 divide-y divide-white/5 overflow-hidden">
+            <!-- Rendered by demo-pos.ts -->
+          </div>
+
+          <div class="mt-3 flex items-start gap-2 text-white/50 text-[11px]">
+            <span>💡</span>
+            <p>
+              Cada venta descuenta el stock por ti. Usa
+              <span class="text-white/80 font-semibold">−1</span> o
+              <span class="text-white/80 font-semibold">+1</span> para ajustes rápidos y
+              <span class="text-emerald-300 font-semibold">+10</span>
+              cuando recibas mercancía nueva.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-4 text-center text-white/30 text-xs">
+        * Es una prueba para que veas cómo se siente el sistema. Lo que hagas se guarda en este navegador y puedes reiniciarlo cuando quieras.
+      </p>
+
+      <!-- Payment method modal -->
+      <div
+        data-payment-modal
+        class="hidden fixed inset-0 z-[60] items-center justify-center p-4"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="payment-modal-title"
+      >
+        <div data-payment-backdrop class="absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
+
+        <div class="relative w-full max-w-sm rounded-2xl border border-white/10 bg-[#161616] p-6 shadow-2xl">
+          <div class="text-center mb-5">
+            <p id="payment-modal-title" class="text-white font-bold text-lg">¿Cómo va a pagar?</p>
+            <p class="mt-1 text-white/50 text-xs">Total a cobrar</p>
+            <p data-payment-total class="text-yellow font-display text-3xl tracking-wide mt-0.5">$0.00</p>
+          </div>
+
+          <div class="space-y-2">
+            <button
+              type="button"
+              data-pay="cash"
+              class="w-full inline-flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 hover:bg-emerald-500/15 hover:border-emerald-500/40 text-left px-4 py-3 transition-colors"
+            >
+              <span class="w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                <Banknote class="w-4 h-4 text-emerald-400" />
+              </span>
+              <span class="flex-1">
+                <span class="block text-white text-sm font-semibold">Efectivo</span>
+                <span class="block text-white/40 text-[10px]">Cobro con billetes y monedas</span>
+              </span>
+            </button>
+
+            <button
+              type="button"
+              data-pay="card"
+              class="w-full inline-flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 hover:bg-blue-500/15 hover:border-blue-500/40 text-left px-4 py-3 transition-colors"
+            >
+              <span class="w-9 h-9 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                <CreditCard class="w-4 h-4 text-blue-400" />
+              </span>
+              <span class="flex-1">
+                <span class="block text-white text-sm font-semibold">Tarjeta</span>
+                <span class="block text-white/40 text-[10px]">Crédito o débito</span>
+              </span>
+            </button>
+
+            <button
+              type="button"
+              data-pay="transfer"
+              class="w-full inline-flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 hover:bg-purple-500/15 hover:border-purple-500/40 text-left px-4 py-3 transition-colors"
+            >
+              <span class="w-9 h-9 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                <Smartphone class="w-4 h-4 text-purple-400" />
+              </span>
+              <span class="flex-1">
+                <span class="block text-white text-sm font-semibold">Transferencia</span>
+                <span class="block text-white/40 text-[10px]">SPEI o transferencia bancaria</span>
+              </span>
+            </button>
+          </div>
+
+          <button
+            type="button"
+            data-pay-cancel
+            class="mt-4 w-full py-2.5 rounded-xl text-white/50 hover:text-white text-xs font-semibold uppercase tracking-wider transition-colors"
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import "../../../scripts/demo-pos";
+</script>

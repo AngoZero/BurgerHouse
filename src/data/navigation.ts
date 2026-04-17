@@ -9,6 +9,15 @@ export const navLinks: NavLink[] = [
   { label: "Encuéntranos", href: "#encuentranos" },
 ];
 
+export const sistemaLinks: NavLink[] = [
+  { label: "Funciones", href: "#features" },
+  { label: "POS", href: "#pos" },
+  { label: "Dashboard", href: "#dashboard" },
+  { label: "Módulos", href: "#modules" },
+  { label: "Roles", href: "#roles" },
+  { label: "Demo", href: "#demo" },
+];
+
 export const socialLinks: SocialLink[] = [
   { name: "Instagram", href: "#", icon: "Instagram" },
   { name: "Facebook", href: "#", icon: "Facebook" },

@@ -14,7 +14,7 @@ import { branches } from "../../data/branches";
       decoding="async"
     />
     <div class="absolute inset-0 bg-dark/70"></div>
-    <div class="relative container mx-auto px-4 lg:px-8 text-center">
+    <div class="relative container mx-auto px-4 lg:px-8 text-center" data-reveal="fade-up">
       <h2 class="font-display text-5xl md:text-6xl lg:text-7xl tracking-wide text-white mb-4">
         ENCUÉNTRANOS
       </h2>
@@ -32,6 +32,8 @@ import { branches } from "../../data/branches";
           branches.map((branch, index) => (
             <div
               data-branch={branch.id}
+              data-reveal="fade-up"
+              data-reveal-delay={index * 120}
               role="button"
               tabindex="0"
               aria-pressed={index === 0 ? "true" : "false"}
@@ -89,7 +91,7 @@ import { branches } from "../../data/branches";
       </div>
 
       <!-- Mapa compartido -->
-      <div class="rounded-2xl overflow-hidden shadow-md h-72 lg:h-96 bg-cream">
+      <div class="rounded-2xl overflow-hidden shadow-md h-72 lg:h-96 bg-cream" data-reveal="zoom-in">
         <iframe
           id="branch-map"
           src={branches[0].mapEmbedUrl}

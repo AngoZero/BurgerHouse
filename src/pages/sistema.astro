@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/sections/Navbar.astro";
+import SistemaHero from "../components/sections/sistema/SistemaHero.astro";
+import SistemaFeatures from "../components/sections/sistema/SistemaFeatures.astro";
+import SistemaPos from "../components/sections/sistema/SistemaPos.astro";
+import SistemaDashboard from "../components/sections/sistema/SistemaDashboard.astro";
+import SistemaModules from "../components/sections/sistema/SistemaModules.astro";
+import SistemaRoles from "../components/sections/sistema/SistemaRoles.astro";
+import SistemaCta from "../components/sections/sistema/SistemaCta.astro";
+import Footer from "../components/sections/Footer.astro";
+---
+
+<BaseLayout
+  title="BurgerHouse | Sistema para tu restaurante"
+  description="Cobra más rápido, controla tu inventario y revisa tus ventas en cualquier momento. Todo desde un solo sistema pensado para restaurantes."
+>
+  <Navbar />
+  <SistemaHero />
+  <SistemaFeatures />
+  <SistemaPos />
+  <SistemaDashboard />
+  <SistemaModules />
+  <SistemaRoles />
+  <SistemaCta />
+  <Footer />
+</BaseLayout>

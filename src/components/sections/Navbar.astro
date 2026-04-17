@@ -1,23 +1,35 @@
 ---
-import { Menu, X } from "lucide-astro";
-import { navLinks } from "../../data/navigation";
+import { Menu, X, ArrowLeft } from "lucide-astro";
+import { navLinks, sistemaLinks } from "../../data/navigation";
 import Button from "../ui/Button.astro";
+
+const pathname = Astro.url.pathname;
+const isSistema = pathname.startsWith("/sistema");
+const links = isSistema ? sistemaLinks : navLinks;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
+<header
+  id="site-navbar"
+  data-scrolled="false"
+  class="group/nav fixed top-0 left-0 right-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300
+    bg-transparent
+    data-[scrolled=true]:bg-white/90
+    data-[scrolled=true]:backdrop-blur-md
+    data-[scrolled=true]:shadow-sm"
+>
   <nav class="container mx-auto px-4 lg:px-8 flex items-center justify-between h-16 lg:h-20">
-    <a href="#inicio" class="text-2xl font-display tracking-wide">
-      <span class="text-primary">Burger</span>
-      <span class="text-dark">House</span>
+    <a href="/" class="text-2xl font-display tracking-wide transition-colors">
+      <span class="text-yellow group-data-[scrolled=true]/nav:text-primary transition-colors">Burger</span>
+      <span class="text-white group-data-[scrolled=true]/nav:text-dark transition-colors">House</span>
     </a>
 
     <ul class="hidden lg:flex items-center gap-8">
       {
-        navLinks.map((link) => (
+        links.map((link) => (
           <li>
             <a
               href={link.href}
-              class="text-dark/70 hover:text-primary transition-colors duration-300 text-sm font-semibold uppercase tracking-wider"
+              class="text-white/85 hover:text-yellow group-data-[scrolled=true]/nav:text-dark/70 group-data-[scrolled=true]/nav:hover:text-primary transition-colors duration-300 text-sm font-semibold uppercase tracking-wider"
             >
               {link.label}
             </a>
@@ -27,12 +39,33 @@ import Button from "../ui/Button.astro";
     </ul>
 
     <div class="hidden lg:flex items-center gap-3">
-      <Button href="#reservas" variant="yellow">Ordenar Ahora</Button>
+      {isSistema ? (
+        <>
+          <a
+            href="/"
+            class="inline-flex items-center gap-1.5 text-white/85 hover:text-yellow group-data-[scrolled=true]/nav:text-dark/70 group-data-[scrolled=true]/nav:hover:text-primary transition-colors duration-300 text-sm font-bold uppercase tracking-wider"
+          >
+            <ArrowLeft class="w-4 h-4" />
+            Landing
+          </a>
+          <Button href="#demo" variant="yellow">Probar demo</Button>
+        </>
+      ) : (
+        <>
+          <a
+            href="/sistema"
+            class="text-yellow hover:text-yellow-dark group-data-[scrolled=true]/nav:text-primary group-data-[scrolled=true]/nav:hover:text-primary-hover transition-colors duration-300 text-sm font-bold uppercase tracking-wider"
+          >
+            Sistema POS
+          </a>
+          <Button href="#reservas" variant="yellow">Ordenar Ahora</Button>
+        </>
+      )}
     </div>
 
     <button
       id="mobile-toggle"
-      class="lg:hidden text-dark p-2"
+      class="lg:hidden text-white group-data-[scrolled=true]/nav:text-dark transition-colors p-2"
       aria-label="Abrir menú"
     >
       <Menu id="icon-open" class="w-6 h-6" />
@@ -42,11 +75,11 @@ import Button from "../ui/Button.astro";
 
   <div
     id="mobile-menu"
-    class="hidden lg:hidden bg-cream border-t border-warm-gray"
+    class="hidden lg:hidden bg-white border-t border-warm-gray"
   >
     <ul class="container mx-auto px-4 py-4 flex flex-col gap-4">
       {
-        navLinks.map((link) => (
+        links.map((link) => (
           <li>
             <a
               href={link.href}
@@ -57,32 +90,76 @@ import Button from "../ui/Button.astro";
           </li>
         ))
       }
-      <li class="pt-2">
-        <Button href="#reservas" variant="yellow" class="w-full text-center">
-          Ordenar Ahora
-        </Button>
-      </li>
+      {isSistema ? (
+        <>
+          <li>
+            <a
+              href="/"
+              class="mobile-link inline-flex items-center gap-1.5 text-primary hover:text-primary-hover text-base font-bold py-2"
+            >
+              <ArrowLeft class="w-4 h-4" />
+              Landing
+            </a>
+          </li>
+          <li class="pt-2">
+            <Button href="#demo" variant="yellow" class="w-full text-center">
+              Probar demo
+            </Button>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <a
+              href="/sistema"
+              class="mobile-link block text-primary hover:text-primary-hover text-base font-bold py-2"
+            >
+              Sistema POS
+            </a>
+          </li>
+          <li class="pt-2">
+            <Button href="#reservas" variant="yellow" class="w-full text-center">
+              Ordenar Ahora
+            </Button>
+          </li>
+        </>
+      )}
     </ul>
   </div>
 </header>
 
 <script>
+  const header = document.getElementById("site-navbar");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  function updateScrolled(): void {
+    if (!header) return;
+    // When mobile menu is open, force solid background for readability.
+    const mobileOpen = mobileMenu && !mobileMenu.classList.contains("hidden");
+    const isScrolled = window.scrollY > 20 || mobileOpen;
+    header.dataset.scrolled = isScrolled ? "true" : "false";
+  }
+
+  window.addEventListener("scroll", updateScrolled, { passive: true });
+  updateScrolled();
+
   const toggle = document.getElementById("mobile-toggle");
-  const menu = document.getElementById("mobile-menu");
   const iconOpen = document.getElementById("icon-open");
   const iconClose = document.getElementById("icon-close");
 
   toggle?.addEventListener("click", () => {
-    menu?.classList.toggle("hidden");
+    mobileMenu?.classList.toggle("hidden");
     iconOpen?.classList.toggle("hidden");
     iconClose?.classList.toggle("hidden");
+    updateScrolled();
   });
 
   document.querySelectorAll(".mobile-link").forEach((link) => {
     link.addEventListener("click", () => {
-      menu?.classList.add("hidden");
+      mobileMenu?.classList.add("hidden");
       iconOpen?.classList.remove("hidden");
       iconClose?.classList.add("hidden");
+      updateScrolled();
     });
   });
 </script>

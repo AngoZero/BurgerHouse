@@ -22,9 +22,9 @@ const sections = [
     return (
       <div class:list={[s.bg, "py-20 lg:py-28 overflow-hidden"]}>
         <div class="container mx-auto px-4 lg:px-8">
-          <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class:list={["grid lg:grid-cols-2 gap-12 items-center", index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""]}>
             <!-- Texto -->
-            <div>
+            <div data-reveal={index % 2 === 0 ? "slide-left" : "slide-right"}>
               <span class:list={[
                 "inline-block font-semibold text-sm tracking-widest uppercase mb-4",
                 s.tagColor
@@ -48,13 +48,17 @@ const sections = [
             </div>
 
             <!-- Imagen -->
-            <div class="relative flex justify-center">
+            <div
+              class="relative flex justify-center"
+              data-reveal={index % 2 === 0 ? "slide-right" : "slide-left"}
+              data-reveal-delay="120"
+            >
               <img
                 src={burger.image}
                 alt={burger.name}
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
-                class="w-full max-w-lg drop-shadow-2xl hover:scale-110 transition-transform duration-500"
+                class="hover-float w-full max-w-lg drop-shadow-2xl hover:scale-110 transition-transform duration-500"
               />
             </div>
           </div>

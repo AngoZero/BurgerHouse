@@ -1,0 +1,61 @@
+---
+import {
+  Receipt,
+  Package,
+  CreditCard,
+  Layers,
+  Users,
+  GitBranch,
+  Building2,
+  BarChart3,
+} from "lucide-astro";
+import { modules } from "../../../data/sistema";
+import SectionHeading from "../../ui/SectionHeading.astro";
+import MockupTile from "./MockupTile.astro";
+
+const iconMap: Record<string, any> = {
+  Receipt,
+  Package,
+  CreditCard,
+  Layers,
+  Users,
+  GitBranch,
+  Building2,
+  BarChart3,
+};
+---
+
+<section id="modules" class="bg-white py-20 lg:py-28 border-t border-gray-100">
+  <div class="container mx-auto px-4 lg:px-8">
+    <SectionHeading
+      title="Todo lo que tu negocio necesita"
+      subtitle="8 áreas conectadas entre sí. Lo que cambias en una se refleja al instante en las demás."
+    />
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {modules.map((mod, i) => {
+        const Icon = iconMap[mod.icon];
+        return (
+          <div
+            data-reveal="tilt-up"
+            data-reveal-delay={Math.min((i % 4) * 100, 400)}
+            class="group rounded-2xl border border-gray-100 bg-white hover:shadow-lg hover:border-primary/20 transition-all duration-300 overflow-hidden"
+          >
+            <div class="p-2.5 pb-0">
+              <MockupTile type={mod.mockup} />
+            </div>
+            <div class="p-4">
+              <div class="flex items-center gap-2 mb-1.5">
+                <div class="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                  {Icon && <Icon class="w-3.5 h-3.5 text-primary group-hover:text-white transition-colors" />}
+                </div>
+                <h3 class="text-sm font-bold text-dark">{mod.name}</h3>
+              </div>
+              <p class="text-text-secondary text-xs leading-relaxed">{mod.description}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

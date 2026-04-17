@@ -1,0 +1,155 @@
+---
+import { Check, Flame, MapPin, ShoppingCart, Search } from "lucide-astro";
+import { posCapabilities } from "../../../data/sistema";
+import SectionHeading from "../../ui/SectionHeading.astro";
+import Button from "../../ui/Button.astro";
+
+const mockProducts = [
+  { name: "La Bestia", price: "$189", image: "/images/burger-bestia.png" },
+  { name: "Smoky BBQ", price: "$169", image: "/images/burger-smoky.png" },
+  { name: "Royal Cheese", price: "$159", image: "/images/burger-royal.png" },
+  { name: "La Bestia Doble", price: "$229", image: "/images/burger-bestia.png" },
+  { name: "Smoky Jr.", price: "$129", image: "/images/burger-smoky.png" },
+  { name: "Royal Deluxe", price: "$199", image: "/images/burger-royal.png" },
+];
+
+const cartItems = [
+  { name: "La Bestia", qty: 2, price: "$378.00" },
+  { name: "Smoky BBQ", qty: 1, price: "$169.00" },
+];
+---
+
+<section id="pos" class="bg-dark py-20 lg:py-28 overflow-hidden">
+  <div class="container mx-auto px-4 lg:px-8">
+    <SectionHeading
+      title="Cobra más rápido, sin errores"
+      subtitle="Pensado para que tu cajero atienda al cliente, no pelee con la computadora. Todo a la mano, en segundos."
+      light
+    />
+
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <!-- Left: Capabilities -->
+      <div>
+        <h3 class="text-2xl font-heading font-bold text-white mb-6">
+          Lo que tu cajero puede hacer
+        </h3>
+        <ul class="space-y-3">
+          {posCapabilities.map((cap) => (
+            <li class="flex items-start gap-3">
+              <div class="mt-0.5 w-5 h-5 rounded-full bg-yellow/20 flex items-center justify-center shrink-0">
+                <Check class="w-3 h-3 text-yellow" />
+              </div>
+              <span class="text-white/80 text-sm leading-relaxed">{cap}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="mt-8">
+          <Button href="https://pos.burgerhouse.mx" variant="yellow">
+            Probarlo ahora
+          </Button>
+        </div>
+      </div>
+
+      <!-- Right: POS Mockup -->
+      <div class="relative">
+        <div class="rounded-2xl border border-white/10 bg-[#0f0f0f] shadow-2xl overflow-hidden">
+          <!-- POS Header -->
+          <div class="flex items-center gap-3 px-4 py-3 border-b border-white/10 bg-[#161616]">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-yellow flex items-center justify-center">
+                <Flame class="w-4 h-4 text-dark" />
+              </div>
+              <div>
+                <p class="text-white text-xs font-semibold">BurgerHouse POS</p>
+                <p class="text-white/40 text-[10px] flex items-center gap-0.5">
+                  <MapPin class="w-2.5 h-2.5" /> Sucursal Centro
+                </p>
+              </div>
+            </div>
+            <div class="ml-auto flex items-center gap-2">
+              <div class="flex items-center gap-1.5 bg-white/5 rounded-lg px-2.5 py-1.5">
+                <Search class="w-3 h-3 text-white/40" />
+                <span class="text-white/30 text-[10px]">Buscar producto...</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex">
+            <!-- Product Grid -->
+            <div class="flex-1 p-3">
+              <!-- Category Tabs -->
+              <div class="flex gap-1.5 mb-3">
+                <span class="px-3 py-1 rounded-full bg-primary text-white text-[10px] font-bold">Todas</span>
+                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-[10px]">Hamburguesas</span>
+                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-[10px]">Bebidas</span>
+                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-[10px]">Extras</span>
+              </div>
+
+              <!-- Products 3-col grid -->
+              <div class="grid grid-cols-3 gap-2">
+                {mockProducts.map((product) => (
+                  <div class="rounded-xl bg-white/5 border border-white/5 p-2 hover:border-yellow/30 transition-colors cursor-pointer">
+                    <div class="aspect-square rounded-lg bg-white/5 overflow-hidden mb-1.5">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                    <p class="text-white text-[10px] font-semibold truncate">{product.name}</p>
+                    <p class="text-yellow text-[10px] font-bold">{product.price}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Cart Panel -->
+            <div class="w-[160px] border-l border-white/10 bg-[#111] p-3 flex flex-col">
+              <div class="flex items-center gap-1.5 mb-3">
+                <ShoppingCart class="w-3 h-3 text-white/50" />
+                <span class="text-white text-[10px] font-bold">Orden actual</span>
+              </div>
+
+              <div class="flex-1 space-y-2">
+                {cartItems.map((item) => (
+                  <div class="bg-white/5 rounded-lg p-2">
+                    <p class="text-white text-[10px] font-medium">{item.name}</p>
+                    <div class="flex items-center justify-between mt-0.5">
+                      <span class="text-white/40 text-[9px]">x{item.qty}</span>
+                      <span class="text-yellow text-[10px] font-bold">{item.price}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div class="border-t border-white/10 pt-2 mt-2 space-y-1">
+                <div class="flex justify-between text-[9px]">
+                  <span class="text-white/40">Subtotal</span>
+                  <span class="text-white/70">$465.52</span>
+                </div>
+                <div class="flex justify-between text-[9px]">
+                  <span class="text-white/40">IVA 16%</span>
+                  <span class="text-white/70">$81.48</span>
+                </div>
+                <div class="flex justify-between text-xs font-bold">
+                  <span class="text-white">Total</span>
+                  <span class="text-yellow">$547.00</span>
+                </div>
+              </div>
+
+              <button class="mt-2 w-full py-2 rounded-xl bg-primary text-white text-[10px] font-bold hover:bg-primary-hover transition-colors">
+                Cobrar $547.00
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Glow effects -->
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-yellow/10 rounded-full blur-3xl pointer-events-none"></div>
+      </div>
+    </div>
+  </div>
+</section>

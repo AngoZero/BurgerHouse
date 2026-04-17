@@ -1,0 +1,57 @@
+---
+import {
+  Monitor,
+  BarChart3,
+  MapPin,
+  Package,
+  CreditCard,
+  TrendingUp,
+} from "lucide-astro";
+import { features } from "../../../data/sistema";
+import SectionHeading from "../../ui/SectionHeading.astro";
+import MockupTile from "./MockupTile.astro";
+
+const iconMap: Record<string, any> = {
+  Monitor,
+  BarChart3,
+  MapPin,
+  Package,
+  CreditCard,
+  TrendingUp,
+};
+---
+
+<section id="features" class="bg-white py-20 lg:py-28">
+  <div class="container mx-auto px-4 lg:px-8">
+    <SectionHeading
+      title="Todo lo que tu restaurante necesita"
+      subtitle="Funciones pensadas para el día a día: atender más rápido, vender más y tener tu negocio bajo control."
+    />
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {features.map((feature, i) => {
+        const Icon = iconMap[feature.icon];
+        return (
+          <div
+            data-reveal="fade-up"
+            data-reveal-delay={Math.min((i % 3) * 120, 360)}
+            class="group rounded-2xl border border-gray-100 hover:border-primary/20 hover:shadow-lg transition-all duration-300 overflow-hidden bg-white"
+          >
+            <div class="p-3 pb-0">
+              <MockupTile type={feature.mockup} />
+            </div>
+            <div class="p-5">
+              <div class="flex items-center gap-2.5 mb-2">
+                <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                  {Icon && <Icon class="w-4 h-4 text-primary group-hover:text-white transition-colors" />}
+                </div>
+                <h3 class="text-base font-bold text-dark">{feature.title}</h3>
+              </div>
+              <p class="text-text-secondary text-sm leading-relaxed">{feature.description}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

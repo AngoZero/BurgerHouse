@@ -1,0 +1,310 @@
+---
+interface Props {
+  type: string;
+  dark?: boolean;
+}
+
+const { type, dark = false } = Astro.props;
+
+// Shared palette for dark or light tile background
+const tileBg = dark ? "bg-[#1e1e1e] border-white/10" : "bg-gray-50 border-gray-100";
+const textMain = dark ? "text-white" : "text-dark";
+const textMuted = dark ? "text-white/50" : "text-gray-500";
+---
+
+<div class:list={["relative h-36 rounded-xl border overflow-hidden p-3", tileBg]}>
+  {type === "pos-grid" && (
+    <div class="h-full flex flex-col">
+      <div class="flex gap-1 mb-1.5">
+        <span class="px-1.5 py-0.5 rounded-full bg-primary text-white text-[8px] font-bold">Todas</span>
+        <span class={`px-1.5 py-0.5 rounded-full text-[8px] ${dark ? "bg-white/10 text-white/60" : "bg-white text-gray-500"}`}>Burgers</span>
+        <span class={`px-1.5 py-0.5 rounded-full text-[8px] ${dark ? "bg-white/10 text-white/60" : "bg-white text-gray-500"}`}>Drinks</span>
+      </div>
+      <div class="grid grid-cols-3 gap-1.5 flex-1">
+        {[
+          { img: "/images/burger-bestia.png", p: "$189" },
+          { img: "/images/burger-smoky.png", p: "$169" },
+          { img: "/images/burger-royal.png", p: "$159" },
+          { img: "/images/burger-bestia.png", p: "$229" },
+          { img: "/images/burger-smoky.png", p: "$129" },
+          { img: "/images/burger-royal.png", p: "$199" },
+        ].map((prod) => (
+          <div class={`rounded-lg ${dark ? "bg-white/5" : "bg-white"} overflow-hidden relative`}>
+            <img src={prod.img} alt="" class="w-full h-full object-cover" loading="lazy" />
+            <span class="absolute bottom-0.5 right-0.5 bg-yellow text-dark text-[7px] font-bold px-1 rounded">{prod.p}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {type === "dashboard-stats" && (
+    <div class="h-full flex flex-col gap-2">
+      <div class="grid grid-cols-2 gap-1.5">
+        <div class={`rounded-lg ${dark ? "bg-white/5" : "bg-white"} p-1.5`}>
+          <p class={`text-[8px] ${textMuted}`}>VENTAS HOY</p>
+          <p class={`text-sm font-bold ${textMain}`}>$12,450</p>
+          <p class="text-[8px] text-emerald-500">+18%</p>
+        </div>
+        <div class={`rounded-lg ${dark ? "bg-white/5" : "bg-white"} p-1.5`}>
+          <p class={`text-[8px] ${textMuted}`}>TICKETS</p>
+          <p class={`text-sm font-bold ${textMain}`}>47</p>
+          <p class="text-[8px] text-emerald-500">+12%</p>
+        </div>
+      </div>
+      <div class="flex items-end gap-1 flex-1 px-0.5">
+        {[40, 60, 35, 75, 55, 90, 70].map((h) => (
+          <div class="flex-1 rounded-t bg-primary/70" style={`height: ${h}%`}></div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {type === "multi-branch" && (
+    <div class="h-full flex flex-col gap-1.5">
+      {[
+        { name: "Sucursal Centro", code: "CEN", active: true },
+        { name: "Sucursal Norte", code: "NOR", active: true },
+        { name: "Sucursal Sur", code: "SUR", active: false },
+      ].map((b) => (
+        <div class={`flex items-center gap-2 rounded-lg ${dark ? "bg-white/5" : "bg-white"} px-2 py-1.5`}>
+          <span class={`w-1.5 h-1.5 rounded-full ${b.active ? "bg-emerald-500" : "bg-gray-400"}`}></span>
+          <span class={`text-[10px] font-semibold ${textMain}`}>{b.name}</span>
+          <span class={`ml-auto text-[8px] font-bold ${textMuted}`}>{b.code}</span>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {type === "inventory-table" && (
+    <div class="h-full flex flex-col">
+      <div class="grid grid-cols-3 gap-1 mb-1">
+        <span class={`text-[8px] font-bold uppercase ${textMuted}`}>Producto</span>
+        <span class={`text-[8px] font-bold uppercase ${textMuted}`}>Stock</span>
+        <span class={`text-[8px] font-bold uppercase ${textMuted}`}>Estado</span>
+      </div>
+      {[
+        { p: "La Bestia", s: "24", ok: true },
+        { p: "Smoky BBQ", s: "8", ok: false },
+        { p: "Royal Cheese", s: "15", ok: true },
+        { p: "Papas Loaded", s: "3", ok: false },
+      ].map((row) => (
+        <div class={`grid grid-cols-3 gap-1 py-1 border-t ${dark ? "border-white/5" : "border-gray-200"}`}>
+          <span class={`text-[9px] ${textMain}`}>{row.p}</span>
+          <span class={`text-[9px] font-bold ${textMain}`}>{row.s}</span>
+          <span class={`text-[8px] font-bold ${row.ok ? "text-emerald-500" : "text-primary"}`}>
+            {row.ok ? "OK" : "BAJO"}
+          </span>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {type === "payment-chips" && (
+    <div class="h-full flex flex-col">
+      <div class="flex gap-1.5 flex-wrap mb-2">
+        <span class="px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 text-[9px] font-bold">💵 Efectivo</span>
+        <span class="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-[9px] font-bold">💳 Tarjeta</span>
+        <span class="px-2 py-1 rounded-full bg-purple-100 text-purple-700 text-[9px] font-bold">📱 Transf.</span>
+      </div>
+      <div class={`rounded-lg ${dark ? "bg-white/5" : "bg-white"} p-2 flex-1 flex flex-col justify-center`}>
+        <div class="flex justify-between text-[9px]">
+          <span class={textMuted}>Efectivo</span><span class={textMain}>$300</span>
+        </div>
+        <div class="flex justify-between text-[9px]">
+          <span class={textMuted}>Tarjeta</span><span class={textMain}>$247</span>
+        </div>
+        <div class={`border-t ${dark ? "border-white/10" : "border-gray-200"} mt-1 pt-1 flex justify-between text-[10px] font-bold`}>
+          <span class={textMain}>Total</span><span class="text-primary">$547</span>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {type === "reports-csv" && (
+    <div class="h-full flex flex-col gap-1.5">
+      <div class="flex items-center justify-between">
+        <span class={`text-[9px] font-bold ${textMain}`}>Reporte Semanal</span>
+        <span class="px-1.5 py-0.5 rounded bg-emerald-500 text-white text-[8px] font-bold">↓ CSV</span>
+      </div>
+      <div class={`rounded-lg ${dark ? "bg-white/5" : "bg-white"} p-1.5 flex-1`}>
+        {[
+          ["Lun 14", "$8,420"],
+          ["Mar 15", "$6,180"],
+          ["Mie 16", "$9,750"],
+          ["Jue 17", "$7,320"],
+        ].map(([d, v]) => (
+          <div class={`flex justify-between py-0.5 border-b ${dark ? "border-white/5" : "border-gray-100"} last:border-0`}>
+            <span class={`text-[9px] ${textMuted}`}>{d}</span>
+            <span class={`text-[9px] font-semibold ${textMain}`}>{v}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {type === "sales-table" && (
+    <div class="h-full flex flex-col">
+      <div class={`grid grid-cols-3 gap-1 pb-1 border-b ${dark ? "border-white/10" : "border-gray-200"}`}>
+        <span class={`text-[8px] font-bold uppercase ${textMuted}`}>Folio</span>
+        <span class={`text-[8px] font-bold uppercase ${textMuted}`}>Total</span>
+        <span class={`text-[8px] font-bold uppercase ${textMuted}`}>Hora</span>
+      </div>
+      {[
+        ["#00128", "$547", "14:32"],
+        ["#00127", "$289", "14:18"],
+        ["#00126", "$412", "14:05"],
+        ["#00125", "$189", "13:54"],
+      ].map(([f, t, h]) => (
+        <div class={`grid grid-cols-3 gap-1 py-1 border-b ${dark ? "border-white/5" : "border-gray-100"} last:border-0`}>
+          <span class={`text-[9px] font-mono ${textMain}`}>{f}</span>
+          <span class={`text-[9px] font-bold text-primary`}>{t}</span>
+          <span class={`text-[9px] ${textMuted}`}>{h}</span>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {type === "inventory-bars" && (
+    <div class="h-full flex flex-col gap-1.5 justify-center">
+      {[
+        { n: "Carne", pct: 85 },
+        { n: "Pan", pct: 62 },
+        { n: "Queso", pct: 45 },
+        { n: "Papas", pct: 20 },
+      ].map((r) => (
+        <div>
+          <div class="flex justify-between mb-0.5">
+            <span class={`text-[9px] ${textMain}`}>{r.n}</span>
+            <span class={`text-[9px] font-bold ${textMuted}`}>{r.pct}%</span>
+          </div>
+          <div class={`h-1.5 rounded-full ${dark ? "bg-white/10" : "bg-gray-200"} overflow-hidden`}>
+            <div class={`h-full rounded-full ${r.pct < 30 ? "bg-primary" : r.pct < 60 ? "bg-yellow" : "bg-emerald-500"}`} style={`width: ${r.pct}%`}></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {type === "cash-card" && (
+    <div class="h-full flex flex-col justify-center gap-2">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class={`text-[9px] font-bold uppercase ${textMuted}`}>Caja abierta</span>
+      </div>
+      <div class={`rounded-lg ${dark ? "bg-white/5" : "bg-white"} p-2`}>
+        <div class="flex justify-between mb-1">
+          <span class={`text-[9px] ${textMuted}`}>Esperado</span>
+          <span class={`text-[10px] font-bold ${textMain}`}>$5,420</span>
+        </div>
+        <div class="flex justify-between mb-1">
+          <span class={`text-[9px] ${textMuted}`}>Contado</span>
+          <span class={`text-[10px] font-bold ${textMain}`}>$5,400</span>
+        </div>
+        <div class={`border-t ${dark ? "border-white/10" : "border-gray-200"} pt-1 flex justify-between`}>
+          <span class={`text-[9px] ${textMuted}`}>Diferencia</span>
+          <span class="text-[10px] font-bold text-primary">−$20</span>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {type === "products-tags" && (
+    <div class="h-full flex flex-col gap-1.5 justify-center">
+      <div class="grid grid-cols-2 gap-1.5">
+        {[
+          { n: "Burgers", c: "bg-primary/20 text-primary", count: 12 },
+          { n: "Bebidas", c: "bg-blue-500/20 text-blue-600", count: 8 },
+          { n: "Extras", c: "bg-yellow/30 text-yellow-dark", count: 6 },
+          { n: "Postres", c: "bg-purple-500/20 text-purple-600", count: 4 },
+        ].map((cat) => (
+          <div class={`rounded-lg px-2 py-1.5 ${cat.c}`}>
+            <p class="text-[9px] font-bold">{cat.n}</p>
+            <p class="text-[8px] opacity-70">{cat.count} productos</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  {type === "users-list" && (
+    <div class="h-full flex flex-col gap-1.5 justify-center">
+      {[
+        { n: "Ana L.", r: "Admin", c: "bg-primary" },
+        { n: "Carlos M.", r: "Supervisor", c: "bg-blue-500" },
+        { n: "Sofía R.", r: "Cajero", c: "bg-emerald-500" },
+      ].map((u) => (
+        <div class={`flex items-center gap-2 rounded-lg ${dark ? "bg-white/5" : "bg-white"} px-2 py-1`}>
+          <div class={`w-5 h-5 rounded-full ${u.c} flex items-center justify-center text-white text-[9px] font-bold`}>
+            {u.n.charAt(0)}
+          </div>
+          <span class={`text-[9px] font-semibold ${textMain}`}>{u.n}</span>
+          <span class={`ml-auto text-[8px] ${textMuted}`}>{u.r}</span>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {type === "branches-list" && (
+    <div class="h-full flex flex-col gap-1 justify-center">
+      {[
+        { n: "Centro", c: "CEN", s: 24 },
+        { n: "Norte", c: "NOR", s: 18 },
+        { n: "Sur", c: "SUR", s: 12 },
+        { n: "Aeropuerto", c: "AER", s: 9 },
+      ].map((b) => (
+        <div class={`flex items-center gap-2 rounded ${dark ? "bg-white/5" : "bg-white"} px-2 py-1`}>
+          <span class={`text-[8px] font-mono font-bold px-1 rounded bg-yellow text-dark`}>{b.c}</span>
+          <span class={`text-[9px] ${textMain}`}>Sucursal {b.n}</span>
+          <span class={`ml-auto text-[8px] ${textMuted}`}>{b.s} vtas</span>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {type === "company-form" && (
+    <div class="h-full flex flex-col gap-1.5 justify-center">
+      {[
+        { l: "Nombre", v: "BurgerHouse SA" },
+        { l: "RFC", v: "BHO240101XYZ" },
+        { l: "Moneda", v: "MXN ($)" },
+      ].map((f) => (
+        <div>
+          <p class={`text-[8px] uppercase font-bold ${textMuted}`}>{f.l}</p>
+          <div class={`rounded px-2 py-1 ${dark ? "bg-white/5" : "bg-white border border-gray-200"}`}>
+            <p class={`text-[9px] ${textMain}`}>{f.v}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {type === "reports-pie" && (
+    <div class="h-full flex items-center gap-3">
+      <div class="relative w-16 h-16 shrink-0">
+        <svg viewBox="0 0 32 32" class="w-full h-full -rotate-90">
+          <circle cx="16" cy="16" r="12" fill="transparent" stroke="#E63946" stroke-width="8" stroke-dasharray="37.7 75.4" />
+          <circle cx="16" cy="16" r="12" fill="transparent" stroke="#FFC107" stroke-width="8" stroke-dasharray="22.6 75.4" stroke-dashoffset="-37.7" />
+          <circle cx="16" cy="16" r="12" fill="transparent" stroke="#10b981" stroke-width="8" stroke-dasharray="15.1 75.4" stroke-dashoffset="-60.3" />
+        </svg>
+      </div>
+      <div class="flex-1 space-y-1">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded bg-primary"></span>
+          <span class={`text-[9px] ${textMain}`}>Burgers</span>
+          <span class={`ml-auto text-[9px] font-bold ${textMuted}`}>50%</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded bg-yellow"></span>
+          <span class={`text-[9px] ${textMain}`}>Bebidas</span>
+          <span class={`ml-auto text-[9px] font-bold ${textMuted}`}>30%</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded bg-emerald-500"></span>
+          <span class={`text-[9px] ${textMain}`}>Extras</span>
+          <span class={`ml-auto text-[9px] font-bold ${textMuted}`}>20%</span>
+        </div>
+      </div>
+    </div>
+  )}
+</div>

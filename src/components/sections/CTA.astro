@@ -6,7 +6,7 @@ import { businessInfo } from "../../data/navigation";
 <section id="reservas" class="bg-dark py-20 lg:py-28 overflow-hidden">
   <div class="container mx-auto px-4 lg:px-8">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
-      <div class="text-center lg:text-left">
+      <div class="text-center lg:text-left" data-reveal="slide-left">
         <span class="inline-block text-yellow font-semibold text-sm tracking-widest uppercase mb-4">
           No Esperes Más
         </span>
@@ -27,14 +27,14 @@ import { businessInfo } from "../../data/navigation";
         </div>
       </div>
 
-      <div class="relative flex justify-center lg:justify-end">
+      <div class="relative flex justify-center lg:justify-end" data-reveal="zoom-in" data-reveal-delay="150">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-yellow/10 rounded-full blur-3xl"></div>
         <img
           src="/images/burger-bestia.png"
           alt="Hamburguesa artesanal"
           loading="lazy"
           decoding="async"
-          class="relative w-full max-w-md lg:max-w-lg drop-shadow-2xl hover:scale-110 transition-transform duration-500"
+          class="hover-float relative w-full max-w-md lg:max-w-lg drop-shadow-2xl hover:scale-110 transition-transform duration-500"
         />
       </div>
     </div>
