@@ -52,99 +52,107 @@ const cartItems = [
       </div>
 
       <!-- Right: POS Mockup -->
-      <div class="relative">
-        <div class="rounded-2xl border border-white/10 bg-[#0f0f0f] shadow-2xl overflow-hidden">
-          <!-- POS Header -->
-          <div class="flex items-center gap-3 px-4 py-3 border-b border-white/10 bg-[#161616]">
-            <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-lg bg-yellow flex items-center justify-center">
-                <Flame class="w-4 h-4 text-dark" />
+      <div class="relative min-w-0">
+        <!-- Scroll wrapper: en mobile permite scroll horizontal, en lg: se comporta normal -->
+        <div class="-mx-4 lg:mx-0 px-4 lg:px-0 overflow-x-auto lg:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div class="min-w-[560px] lg:min-w-0 rounded-2xl border border-white/10 bg-[#0f0f0f] shadow-2xl overflow-hidden">
+            <!-- POS Header -->
+            <div class="flex items-center gap-3 px-4 py-3 border-b border-white/10 bg-[#161616]">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-yellow flex items-center justify-center">
+                  <Flame class="w-4 h-4 text-dark" />
+                </div>
+                <div>
+                  <p class="text-white text-xs font-semibold">BurgerHouse POS</p>
+                  <p class="text-white/40 text-[10px] flex items-center gap-0.5">
+                    <MapPin class="w-2.5 h-2.5" /> Sucursal Centro
+                  </p>
+                </div>
               </div>
-              <div>
-                <p class="text-white text-xs font-semibold">BurgerHouse POS</p>
-                <p class="text-white/40 text-[10px] flex items-center gap-0.5">
-                  <MapPin class="w-2.5 h-2.5" /> Sucursal Centro
-                </p>
+              <div class="ml-auto flex items-center gap-2">
+                <div class="flex items-center gap-1.5 bg-white/5 rounded-lg px-2.5 py-1.5">
+                  <Search class="w-3 h-3 text-white/40" />
+                  <span class="text-white/30 text-[10px]">Buscar producto...</span>
+                </div>
               </div>
             </div>
-            <div class="ml-auto flex items-center gap-2">
-              <div class="flex items-center gap-1.5 bg-white/5 rounded-lg px-2.5 py-1.5">
-                <Search class="w-3 h-3 text-white/40" />
-                <span class="text-white/30 text-[10px]">Buscar producto...</span>
-              </div>
-            </div>
-          </div>
 
-          <div class="flex">
-            <!-- Product Grid -->
-            <div class="flex-1 p-3">
-              <!-- Category Tabs -->
-              <div class="flex gap-1.5 mb-3">
-                <span class="px-3 py-1 rounded-full bg-primary text-white text-[10px] font-bold">Todas</span>
-                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-[10px]">Hamburguesas</span>
-                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-[10px]">Bebidas</span>
-                <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-[10px]">Extras</span>
-              </div>
+            <div class="flex">
+              <!-- Product Grid -->
+              <div class="flex-1 p-3">
+                <!-- Category Tabs -->
+                <div class="flex gap-1.5 mb-3">
+                  <span class="px-3 py-1 rounded-full bg-primary text-white text-[10px] font-bold whitespace-nowrap">Todas</span>
+                  <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-[10px] whitespace-nowrap">Hamburguesas</span>
+                  <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-[10px] whitespace-nowrap">Bebidas</span>
+                  <span class="px-3 py-1 rounded-full bg-white/5 text-white/50 text-[10px] whitespace-nowrap">Extras</span>
+                </div>
 
-              <!-- Products 3-col grid -->
-              <div class="grid grid-cols-3 gap-2">
-                {mockProducts.map((product) => (
-                  <div class="rounded-xl bg-white/5 border border-white/5 p-2 hover:border-yellow/30 transition-colors cursor-pointer">
-                    <div class="aspect-square rounded-lg bg-white/5 overflow-hidden mb-1.5">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        class="w-full h-full object-cover"
-                        loading="lazy"
-                      />
+                <!-- Products 3-col grid -->
+                <div class="grid grid-cols-3 gap-2">
+                  {mockProducts.map((product) => (
+                    <div class="rounded-xl bg-white/5 border border-white/5 p-2 hover:border-yellow/30 transition-colors cursor-pointer">
+                      <div class="aspect-square rounded-lg bg-white/5 overflow-hidden mb-1.5">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          class="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                      <p class="text-white text-[10px] font-semibold truncate">{product.name}</p>
+                      <p class="text-yellow text-[10px] font-bold">{product.price}</p>
                     </div>
-                    <p class="text-white text-[10px] font-semibold truncate">{product.name}</p>
-                    <p class="text-yellow text-[10px] font-bold">{product.price}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <!-- Cart Panel -->
-            <div class="w-[160px] border-l border-white/10 bg-[#111] p-3 flex flex-col">
-              <div class="flex items-center gap-1.5 mb-3">
-                <ShoppingCart class="w-3 h-3 text-white/50" />
-                <span class="text-white text-[10px] font-bold">Orden actual</span>
+                  ))}
+                </div>
               </div>
 
-              <div class="flex-1 space-y-2">
-                {cartItems.map((item) => (
-                  <div class="bg-white/5 rounded-lg p-2">
-                    <p class="text-white text-[10px] font-medium">{item.name}</p>
-                    <div class="flex items-center justify-between mt-0.5">
-                      <span class="text-white/40 text-[9px]">x{item.qty}</span>
-                      <span class="text-yellow text-[10px] font-bold">{item.price}</span>
+              <!-- Cart Panel -->
+              <div class="w-[160px] shrink-0 border-l border-white/10 bg-[#111] p-3 flex flex-col">
+                <div class="flex items-center gap-1.5 mb-3">
+                  <ShoppingCart class="w-3 h-3 text-white/50" />
+                  <span class="text-white text-[10px] font-bold">Orden actual</span>
+                </div>
+
+                <div class="flex-1 space-y-2">
+                  {cartItems.map((item) => (
+                    <div class="bg-white/5 rounded-lg p-2">
+                      <p class="text-white text-[10px] font-medium">{item.name}</p>
+                      <div class="flex items-center justify-between mt-0.5">
+                        <span class="text-white/40 text-[9px]">x{item.qty}</span>
+                        <span class="text-yellow text-[10px] font-bold">{item.price}</span>
+                      </div>
                     </div>
+                  ))}
+                </div>
+
+                <div class="border-t border-white/10 pt-2 mt-2 space-y-1">
+                  <div class="flex justify-between text-[9px]">
+                    <span class="text-white/40">Subtotal</span>
+                    <span class="text-white/70">$465.52</span>
                   </div>
-                ))}
-              </div>
+                  <div class="flex justify-between text-[9px]">
+                    <span class="text-white/40">IVA 16%</span>
+                    <span class="text-white/70">$81.48</span>
+                  </div>
+                  <div class="flex justify-between text-xs font-bold">
+                    <span class="text-white">Total</span>
+                    <span class="text-yellow">$547.00</span>
+                  </div>
+                </div>
 
-              <div class="border-t border-white/10 pt-2 mt-2 space-y-1">
-                <div class="flex justify-between text-[9px]">
-                  <span class="text-white/40">Subtotal</span>
-                  <span class="text-white/70">$465.52</span>
-                </div>
-                <div class="flex justify-between text-[9px]">
-                  <span class="text-white/40">IVA 16%</span>
-                  <span class="text-white/70">$81.48</span>
-                </div>
-                <div class="flex justify-between text-xs font-bold">
-                  <span class="text-white">Total</span>
-                  <span class="text-yellow">$547.00</span>
-                </div>
+                <button class="mt-2 w-full py-2 rounded-xl bg-primary text-white text-[10px] font-bold hover:bg-primary-hover transition-colors">
+                  Cobrar $547.00
+                </button>
               </div>
-
-              <button class="mt-2 w-full py-2 rounded-xl bg-primary text-white text-[10px] font-bold hover:bg-primary-hover transition-colors">
-                Cobrar $547.00
-              </button>
             </div>
           </div>
         </div>
+
+        <!-- Hint de scroll en mobile -->
+        <p class="lg:hidden mt-3 text-center text-white/40 text-xs">
+          Desliza para ver más &rarr;
+        </p>
 
         <!-- Glow effects -->
         <div class="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl pointer-events-none"></div>
